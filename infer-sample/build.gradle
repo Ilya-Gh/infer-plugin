@@ -1,4 +1,16 @@
 apply plugin: 'com.android.application'
+apply plugin: com.uber.infer.InferAndroidPlugin
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath fileTree(dir: '../infer-plugin/build/libs', include: ['*.jar'])
+        classpath 'com.android.tools.build:gradle:2.2.2'
+    }
+}
 
 repositories {
     jcenter()

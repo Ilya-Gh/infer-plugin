@@ -11,3 +11,21 @@ allprojects {
         }
     }
 }
+
+ext.pluginProjectDir = 'infer-plugin'
+task buildPluginProject(type: GradleBuild) {
+    buildFile = pluginProjectDir + '/build.gradle'
+    tasks = ['clean', 'build']
+}
+
+ext.pluginSampleProjectDir = 'infer-sample'
+task buildPluginSampleProject(type: GradleBuild, dependsOn: buildPluginProject) {
+    buildFile = pluginSampleProjectDir + '/build.gradle'
+    tasks = ['clean', 'build']
+}
+
+task clean(type: Delete) {
+    delete "$pluginProjectDir/build", "$pluginSampleProjectDir/build"
+}
+
+tasks.create('build').dependsOn(buildPluginSampleProject)
